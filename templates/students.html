@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Students - HostelHub{% endblock %}
+{% block heading %}Student Management{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <h3>Add New Student</h3>
+    <form method="POST">
+        <div class="form-grid">
+            <input name="name" placeholder="Student Name" required>
+            <input name="email" type="email" placeholder="Email">
+            <input name="phone" placeholder="Phone Number">
+            <input name="course" placeholder="Course">
+            <select name="room_id">
+                <option value="">Select Room</option>
+                {% for room in rooms %}
+                <option value="{{ room.id }}">{{ room.room_number }} - {{ room.room_type }}</option>
+                {% endfor %}
+            </select>
+            <input name="admission_date" type="date">
+        </div>
+        <button type="submit">Add Student</button>
+    </form>
+</div>
+
+<div class="panel">
+    <h3>All Students</h3>
+    <div class="table-wrap">
+    <table>
+        <tr>
+            <th>ID</th><th>Name</th><th>Email</th><th>Phone</th>
+            <th>Course</th><th>Room</th><th>Admission</th><th>Action</th>
+        </tr>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.email }}</td>
+            <td>{{ s.phone }}</td>
+            <td>{{ s.course }}</td>
+            <td>{{ s.room_number or 'Not assigned' }}</td>
+            <td>{{ s.admission_date }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('delete_student', id=s.id) }}"
+                      onsubmit="return confirm('Delete this student?')">
+                    <button class="danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8">No students added yet.</td></tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+{% endblock %}

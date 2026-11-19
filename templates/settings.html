@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Settings - HostelHub{% endblock %}
+{% block heading %}Hostel Settings{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <h3>Hostel Information</h3>
+    <form method="POST">
+        <label>Hostel Name</label>
+        <input name="hostel_name" value="{{ settings.hostel_name }}" required>
+
+        <label>Hostel Address</label>
+        <textarea name="hostel_address">{{ settings.hostel_address }}</textarea>
+
+        <label>Contact Number</label>
+        <input name="contact_number" value="{{ settings.contact_number }}">
+
+        <button type="submit">Save Settings</button>
+    </form>
+</div>
+{% endblock %}

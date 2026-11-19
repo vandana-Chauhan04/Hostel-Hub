@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - HostelHub{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="cards">
+    <div class="card">
+        <p>Total Students</p>
+        <h1>{{ total_students }}</h1>
+    </div>
+    <div class="card">
+        <p>Total Rooms</p>
+        <h1>{{ total_rooms }}</h1>
+    </div>
+    <div class="card">
+        <p>Total Payments</p>
+        <h1>₹{{ "%.2f"|format(total_payments) }}</h1>
+    </div>
+    <div class="card">
+        <p>Pending Complaints</p>
+        <h1>{{ pending_complaints }}</h1>
+    </div>
+</div>
+
+<div class="panel">
+    <h3>Welcome to HostelHub</h3>
+    <p>Manage students, rooms, payments, complaints and staff from separate pages.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Staff - HostelHub{% endblock %}
+{% block heading %}Staff Management{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <h3>Add Staff Member</h3>
+    <form method="POST">
+        <div class="form-grid">
+            <input name="name" placeholder="Staff Name" required>
+            <input name="role" placeholder="Job Role">
+            <input name="phone" placeholder="Phone Number">
+            <input name="salary" type="number" min="0" step="0.01" placeholder="Salary" required>
+        </div>
+        <button type="submit">Add Staff</button>
+    </form>
+</div>
+
+<div class="panel">
+    <h3>Staff Records</h3>
+    <div class="table-wrap">
+    <table>
+        <tr><th>ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Salary</th><th>Action</th></tr>
+        {% for s in staff %}
+        <tr>
+            <td>{{ s.id }}</td><td>{{ s.name }}</td><td>{{ s.role }}</td>
+            <td>{{ s.phone }}</td><td>₹{{ s.salary }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('delete_staff', id=s.id) }}"
+                      onsubmit="return confirm('Delete staff member?')">
+                    <button class="danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No staff members added yet.</td></tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+{% endblock %}

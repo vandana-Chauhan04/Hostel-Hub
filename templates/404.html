@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found{% endblock %}
+{% block heading %}404 - Page Not Found{% endblock %}
+{% block content %}
+<div class="panel">
+    <h3>Sorry! This page does not exist.</h3>
+    <a href="{{ url_for('dashboard') }}">Return to Dashboard</a>
+</div>
+{% endblock %}

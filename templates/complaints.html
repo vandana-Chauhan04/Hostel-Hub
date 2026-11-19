@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Complaints - HostelHub{% endblock %}
+{% block heading %}Complaint Management{% endblock %}
+
+{% block content %}
+<div class="panel">
+    <h3>Add Complaint</h3>
+    <form method="POST">
+        <div class="form-grid">
+            <select name="student_id" required>
+                <option value="">Select Student</option>
+                {% for s in students %}
+                <option value="{{ s.id }}">{{ s.name }}</option>
+                {% endfor %}
+            </select>
+            <input name="title" placeholder="Complaint Title" required>
+            <input name="complaint_date" type="date">
+        </div>
+        <textarea name="description" placeholder="Complaint Description"></textarea>
+        <button type="submit">Submit Complaint</button>
+    </form>
+</div>
+
+<div class="panel">
+    <h3>All Complaints</h3>
+    <div class="table-wrap">
+    <table>
+        <tr><th>ID</th><th>Student</th><th>Title</th><th>Description</th><th>Date</th><th>Status</th><th>Actions</th></tr>
+        {% for c in complaints %}
+        <tr>
+            <td>{{ c.id }}</td><td>{{ c.student_name }}</td>
+            <td>{{ c.title }}</td><td>{{ c.description }}</td>
+            <td>{{ c.complaint_date }}</td>
+            <td>{{ c.status }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('update_complaint', id=c.id) }}">
+                    <select name="status">
+                        <option {% if c.status == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option {% if c.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                        <option {% if c.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+                <form method="POST" action="{{ url_for('delete_complaint', id=c.id) }}"
+                      onsubmit="return confirm('Delete complaint?')">
+                    <button class="danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">No complaints yet.</td></tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+{% endblock %}
